@@ -1,0 +1,40 @@
+server: 
+   port: 9081
+  
+mybatis:
+   //config-location: classpath:mybatis/mybatis-config.xml        # mybatis配置文件所在路径
+   type-aliases-package: com.api.cn.entity.Dept    # 所有Entity别名类所在包
+   mapper-locations:
+   - classpath:mybatis/mapper/**/*.xml  
+        
+spring:
+   application:
+      name: cloud-zuul
+   datasource:
+      type: com.alibaba.druid.pool.DruidDataSource          # 当前数据源操作类型
+      driver-class-name: com.mysql.jdbc.Driver       # mysql驱动包
+      #driver-class-name: com.mysql.cj.jdbc.Driver #匹配mysql8.0
+      url: jdbc:mysql://localhost:3306/management_ system?characterEncoding=utf8&useSSL=false&            # 数据库名称
+      username: root
+      password: root
+      dbcp2:
+         min-idle: 5                                           # 数据库连接池的最小维持连接数
+         initial-size: 5                                       # 初始化连接数
+         max-total: 5                                          # 最大连接数
+         max-wait-millis: 200                                  # 等待连接获取的最大超时时间
+         
+#向Eureka注册自己
+eureka:
+   client:
+      service-url:
+         defaultZone: http://eurekaone.com:7001/eureka/,http://eurekatwo.com:7002/eureka/,http://eurekatwo.com:7002/eureka/
+      indstance:
+         instance-id: zuul9081 #自定义注册名称
+         prefe-ip-address: true #访问路径显示IP
+         
+info:
+   app.name: ZengYu-cloud
+   company.name: www.ZyCompany.com
+   build.artifactId: $project.artifactId$
+   build.version: $project.version$
+         
